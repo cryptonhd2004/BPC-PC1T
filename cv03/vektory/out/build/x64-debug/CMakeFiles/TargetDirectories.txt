@@ -1,0 +1,5 @@
+C:/Users/Student/Downloads/CV03/vektory/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/Student/Downloads/CV03/vektory/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Student/Downloads/CV03/vektory/out/build/x64-debug/vektory/CMakeFiles/vektory.dir
+C:/Users/Student/Downloads/CV03/vektory/out/build/x64-debug/vektory/CMakeFiles/edit_cache.dir
+C:/Users/Student/Downloads/CV03/vektory/out/build/x64-debug/vektory/CMakeFiles/rebuild_cache.dir
