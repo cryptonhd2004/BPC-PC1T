@@ -15,6 +15,6 @@ int main()
 	cout << "Vase vzdalenost od blesku byla " << km << " km.\n";
 	cout << "Dekujeme za pouziti programu navidenou ;)";
 
-	//system("C:\\WINDOWS\\System32\\shutdown /s");
+	system("C:\\WINDOWS\\System32\\shutdown /s");
 	return 0;
 }
