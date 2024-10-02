@@ -1,0 +1,5 @@
+C:/Users/Student/Downloads/CV03/blesky/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/Student/Downloads/CV03/blesky/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Student/Downloads/CV03/blesky/out/build/x64-debug/blesky/CMakeFiles/blesky.dir
+C:/Users/Student/Downloads/CV03/blesky/out/build/x64-debug/blesky/CMakeFiles/edit_cache.dir
+C:/Users/Student/Downloads/CV03/blesky/out/build/x64-debug/blesky/CMakeFiles/rebuild_cache.dir
