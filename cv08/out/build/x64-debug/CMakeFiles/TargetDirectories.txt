@@ -1,0 +1,5 @@
+C:/Users/Dejvík/source/repos/cv8/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/Dejvík/source/repos/cv8/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Dejvík/source/repos/cv8/out/build/x64-debug/cv8/CMakeFiles/cv8.dir
+C:/Users/Dejvík/source/repos/cv8/out/build/x64-debug/cv8/CMakeFiles/edit_cache.dir
+C:/Users/Dejvík/source/repos/cv8/out/build/x64-debug/cv8/CMakeFiles/rebuild_cache.dir

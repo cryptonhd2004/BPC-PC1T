@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\cv8.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:cv8\\cv8.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:cv8\\sindelar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:cv8\\sindelar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "sindelar.h",
+              "DocumentMoniker": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.h",
+              "RelativeDocumentMoniker": "cv8\\sindelar.h",
+              "ToolTip": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.h",
+              "RelativeToolTip": "cv8\\sindelar.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-06T06:23:10.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "sindelar.cpp",
+              "DocumentMoniker": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.cpp",
+              "RelativeDocumentMoniker": "cv8\\sindelar.cpp",
+              "ToolTip": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\sindelar.cpp",
+              "RelativeToolTip": "cv8\\sindelar.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-06T06:22:32.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "cv8.cpp",
+              "DocumentMoniker": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\cv8.cpp",
+              "RelativeDocumentMoniker": "cv8\\cv8.cpp",
+              "ToolTip": "C:\\Users\\Dejv\u00EDk\\source\\repos\\cv8\\cv8\\cv8.cpp",
+              "RelativeToolTip": "cv8\\cv8.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-06T06:19:33.461Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
