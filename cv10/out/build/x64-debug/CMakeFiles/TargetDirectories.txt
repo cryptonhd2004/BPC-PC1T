@@ -1,0 +1,5 @@
+C:/Users/Student/source/repos/cv10/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/Student/source/repos/cv10/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Student/source/repos/cv10/out/build/x64-debug/cv10/CMakeFiles/cv10.dir
+C:/Users/Student/source/repos/cv10/out/build/x64-debug/cv10/CMakeFiles/edit_cache.dir
+C:/Users/Student/source/repos/cv10/out/build/x64-debug/cv10/CMakeFiles/rebuild_cache.dir
