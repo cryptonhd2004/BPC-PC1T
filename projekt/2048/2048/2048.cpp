@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <conio.h>  // For _kbhit() and getch()
+#include <string.h>
 
 #define SIZE 4
 
@@ -9,10 +10,12 @@
 int gamesPlayed = 0;
 int gamesWon = 0;
 int totalScore = 0;
+char playerName[100];  // Pro uchování jména hráče
 
 void saveStatistics() {
     FILE* file = fopen("statistics.txt", "w");
     if (file != NULL) {
+        fprintf(file, "Player Name: %s\n", playerName);
         fprintf(file, "Games Played: %d\n", gamesPlayed);
         fprintf(file, "Games Won: %d\n", gamesWon);
         fprintf(file, "Total Score: %d\n", totalScore);
@@ -23,6 +26,7 @@ void saveStatistics() {
 void loadStatistics() {
     FILE* file = fopen("statistics.txt", "r");
     if (file != NULL) {
+        fscanf(file, "Player Name: %s\n", playerName);
         fscanf(file, "Games Played: %d\n", &gamesPlayed);
         fscanf(file, "Games Won: %d\n", &gamesWon);
         fscanf(file, "Total Score: %d\n", &totalScore);
@@ -33,6 +37,8 @@ void loadStatistics() {
 void printBoard(int board[SIZE][SIZE]) {
     system("cls");
     printf("\n");
+    printf("Player: %s\n", playerName);
+    printf("Current Score: %d\n", totalScore);
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (board[i][j] == 0)
@@ -218,83 +224,96 @@ int hasValidMove(int board[SIZE][SIZE]) {
     return 0;  // No valid move left
 }
 
+int checkWin(int board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (board[i][j] == 2048) {
+                return 1;  // Player wins
+            }
+        }
+    }
+    return 0;  // No win yet
+}
+
 void showMenu() {
     system("cls");
     printf("Hlavni menu:\n");
     printf("1. Nova hra\n");
-    printf("2. Pokracovat v hre\n");
-    printf("3. Statistiky\n");
-    printf("4. Konec\n");
-    printf("Vyberte volbu (1-4): ");
+    printf("2. Statistiky\n");
+    printf("3. Konec\n");
+    printf("Vyberte volbu (1-3): ");
 }
 
 void startNewGame() {
+    printf("Zadejte sve jmeno: ");
+    fgets(playerName, 100, stdin);
+    playerName[strcspn(playerName, "\n")] = '\0';  // Remove trailing newline character
+
     int board[SIZE][SIZE] = { 0 };
     addNewTile(board);
     addNewTile(board);
 
-    int success;
     while (1) {
         printBoard(board);
 
-        if (isBoardFull(board)) {
-            if (!hasValidMove(board)) {  // No valid moves left
-                printf("Game Over! No moves left and the board is full.\n");
-                gamesPlayed++;
-                break;
-            }
-            else {
-                printf("The board is full, you have one extra chance!\n");
-            }
+        if (isBoardFull(board) && !hasValidMove(board)) {
+            printf("Game Over! No moves left and the board is full.\n");
+            system("pause");
+            gamesPlayed++;
+            break;
         }
 
         printf("Use arrow keys (Up, Down, Left, Right): ");
-        char input = getch();  // Use getch to read the arrow key press
+        char input = getch();
 
-        // Detect arrow keys using extended codes
         if (input == 0 || input == 224) {
-            input = getch();  // Get the actual key code
+            input = getch();
         }
 
-        success = 0; // Reset success for each move attempt
+        // Zkopírujeme aktuální stav desky před pohybem
+        int oldBoard[SIZE][SIZE];
+        memcpy(oldBoard, board, sizeof(board));
 
+        int success = 0;
         switch (input) {
-        case 75: // Left arrow
+        case 75:  // Left arrow
             success = moveLeft(board);
-            addNewTile(board);
             break;
-        case 77: // Right arrow
+        case 77:  // Right arrow
             success = moveRight(board);
-            addNewTile(board);
             break;
-        case 72: // Up arrow
+        case 72:  // Up arrow
             success = moveUp(board);
-            addNewTile(board);
             break;
-        case 80: // Down arrow
+        case 80:  // Down arrow
             success = moveDown(board);
-            addNewTile(board);
             break;
         default:
             printf("Invalid input!\n");
         }
+
+        // Porovnáme desku před a po tahu
+        if (memcmp(oldBoard, board, sizeof(board)) != 0) {
+            addNewTile(board);  // Přidáme nový tile pouze při změně na desce
+            totalScore++;       // Zvyšíme skóre za tah
+        }
     }
 }
-
 void showStatistics() {
     system("cls");
     printf("Statistiky:\n");
+    printf("Hrac: %s\n", playerName);
     printf("Hracich her: %d\n", gamesPlayed);
     printf("Vyhranych her: %d\n", gamesWon);
     printf("Celkovy score: %d\n", totalScore);
     printf("\nStisknete libovolnou klavesu pro navrat do menu.");
-    getch();  // Wait for the user to press a key
+    getch();
 }
 
 int main() {
     srand(time(NULL));
 
-    loadStatistics();  // Load statistics when the program starts
+    loadStatistics();
 
     while (1) {
         showMenu();
@@ -303,15 +322,12 @@ int main() {
         case '1':  // New game
             startNewGame();
             break;
-        case '2':  // Continue game
-            printf("Pokracovani neni implementovano.\n");
-            break;
-        case '3':  // Show statistics
+        case '2':  // Show statistics
             showStatistics();
             break;
-        case '4':  // Exit
+        case '3':  // Exit
             printf("Konec hry.\n");
-            saveStatistics();  // Save statistics when exiting
+            saveStatistics();
             return 0;
         default:
             printf("Neplatna volba! Stisknete libovolnou klavesu pro opakovani.\n");
