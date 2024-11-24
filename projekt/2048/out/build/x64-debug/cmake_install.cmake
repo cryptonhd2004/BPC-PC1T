@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/Dejvík/source/repos/2048
+# Install script for directory: C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/Dejvík/source/repos/2048/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/Dejvík/source/repos/2048/out/build/x64-debug/2048/cmake_install.cmake")
+  include("C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/build/x64-debug/2048/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Dejvík/source/repos/2048/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

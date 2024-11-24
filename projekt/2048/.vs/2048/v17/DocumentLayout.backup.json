@@ -1,13 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Dejv\u00EDk\\source\\repos\\2048\\",
+  "WorkspaceRootPath": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Dejv\u00EDk\\source\\repos\\2048\\2048\\2048.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\2048.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\2048.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Str\u00E1nky p\u0159ehledu CMake||{B1CAA5B0-FEB1-4350-8AB9-F895876842F2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -25,22 +22,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Str\u00E1nky p\u0159ehledu CMake",
-              "DocumentMoniker": "Str\u00E1nky p\u0159ehledu CMake",
-              "ToolTip": "Str\u00E1nky p\u0159ehledu CMake",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-11T09:51:50.689Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "2048.cpp",
-              "DocumentMoniker": "C:\\Users\\Dejv\u00EDk\\source\\repos\\2048\\2048\\2048.cpp",
+              "DocumentMoniker": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\2048.cpp",
               "RelativeDocumentMoniker": "2048\\2048.cpp",
-              "ToolTip": "C:\\Users\\Dejv\u00EDk\\source\\repos\\2048\\2048\\2048.cpp",
+              "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\2048.cpp",
               "RelativeToolTip": "2048\\2048.cpp",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAmwLQAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAAkBAAAAAAAAAAAIwBcBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-11T09:51:49.414Z",
               "EditorCaption": ""

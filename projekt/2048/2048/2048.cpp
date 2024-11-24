@@ -1,8 +1,34 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h>  // For _kbhit() and getch()
 
 #define SIZE 4
+
+// Globální proměnné pro uchování statistik
+int gamesPlayed = 0;
+int gamesWon = 0;
+int totalScore = 0;
+
+void saveStatistics() {
+    FILE* file = fopen("statistics.txt", "w");
+    if (file != NULL) {
+        fprintf(file, "Games Played: %d\n", gamesPlayed);
+        fprintf(file, "Games Won: %d\n", gamesWon);
+        fprintf(file, "Total Score: %d\n", totalScore);
+        fclose(file);
+    }
+}
+
+void loadStatistics() {
+    FILE* file = fopen("statistics.txt", "r");
+    if (file != NULL) {
+        fscanf(file, "Games Played: %d\n", &gamesPlayed);
+        fscanf(file, "Games Won: %d\n", &gamesWon);
+        fscanf(file, "Total Score: %d\n", &totalScore);
+        fclose(file);
+    }
+}
 
 void printBoard(int board[SIZE][SIZE]) {
     system("cls");
@@ -86,6 +112,64 @@ int moveLeft(int board[SIZE][SIZE]) {
     return success;
 }
 
+int moveUp(int board[SIZE][SIZE]) {
+    int success = 0;
+    for (int j = 0; j < SIZE; j++) {
+        int temp[SIZE] = { 0 };
+
+        // Copy column into temp array
+        for (int i = 0; i < SIZE; i++) {
+            temp[i] = board[i][j];
+        }
+
+        slideArray(temp);
+        success |= combineArray(temp);
+        slideArray(temp);
+
+        // Copy back to the board
+        for (int i = 0; i < SIZE; i++) {
+            board[i][j] = temp[i];
+        }
+    }
+    return success;
+}
+
+int moveDown(int board[SIZE][SIZE]) {
+    int success = 0;
+    for (int j = 0; j < SIZE; j++) {
+        int temp[SIZE] = { 0 };
+
+        // Copy column into temp array
+        for (int i = 0; i < SIZE; i++) {
+            temp[i] = board[i][j];
+        }
+
+        // Reverse the array for moving down
+        for (int i = 0; i < SIZE / 2; i++) {
+            int t = temp[i];
+            temp[i] = temp[SIZE - i - 1];
+            temp[SIZE - i - 1] = t;
+        }
+
+        slideArray(temp);
+        success |= combineArray(temp);
+        slideArray(temp);
+
+        // Reverse back the array after combining
+        for (int i = 0; i < SIZE / 2; i++) {
+            int t = temp[i];
+            temp[i] = temp[SIZE - i - 1];
+            temp[SIZE - i - 1] = t;
+        }
+
+        // Copy back to the board
+        for (int i = 0; i < SIZE; i++) {
+            board[i][j] = temp[i];
+        }
+    }
+    return success;
+}
+
 void rotateBoard(int board[SIZE][SIZE]) {
     int temp[SIZE][SIZE];
     for (int i = 0; i < SIZE; i++) {
@@ -101,15 +185,6 @@ void rotateBoard(int board[SIZE][SIZE]) {
     }
 }
 
-int moveUp(int board[SIZE][SIZE]) {
-    rotateBoard(board);
-    int success = moveLeft(board);
-    rotateBoard(board);
-    rotateBoard(board);
-    rotateBoard(board);
-    return success;
-}
-
 int moveRight(int board[SIZE][SIZE]) {
     rotateBoard(board);
     rotateBoard(board);
@@ -119,81 +194,128 @@ int moveRight(int board[SIZE][SIZE]) {
     return success;
 }
 
-int moveDown(int board[SIZE][SIZE]) {
-    rotateBoard(board);
-    rotateBoard(board);
-    rotateBoard(board);
-    int success = moveLeft(board);
-    rotateBoard(board);
-    return success;
-}
-
-int canMove(int board[SIZE][SIZE]) {
+int isBoardFull(int board[SIZE][SIZE]) {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (board[i][j] == 0)
-                return 1;
-            if (j < SIZE - 1 && board[i][j] == board[i][j + 1])
-                return 1;
-            if (i < SIZE - 1 && board[i][j] == board[i + 1][j])
-                return 1;
+                return 0;  // Found an empty tile
         }
     }
-    return 0;
+    return 1;  // Board is full
 }
 
-int main() {
-    srand(time(NULL));
+int hasValidMove(int board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (board[i][j] == 0)
+                return 1;  // There is an empty tile, so a move is possible
+            if (i < SIZE - 1 && board[i][j] == board[i + 1][j])
+                return 1;  // Vertical merge is possible
+            if (j < SIZE - 1 && board[i][j] == board[i][j + 1])
+                return 1;  // Horizontal merge is possible
+        }
+    }
+    return 0;  // No valid move left
+}
 
+void showMenu() {
+    system("cls");
+    printf("Hlavni menu:\n");
+    printf("1. Nova hra\n");
+    printf("2. Pokracovat v hre\n");
+    printf("3. Statistiky\n");
+    printf("4. Konec\n");
+    printf("Vyberte volbu (1-4): ");
+}
+
+void startNewGame() {
     int board[SIZE][SIZE] = { 0 };
     addNewTile(board);
     addNewTile(board);
 
-    char input;
     int success;
-
     while (1) {
         printBoard(board);
 
-        if (!canMove(board)) {
-            printf("Game Over!\n");
-            break;
+        if (isBoardFull(board)) {
+            if (!hasValidMove(board)) {  // No valid moves left
+                printf("Game Over! No moves left and the board is full.\n");
+                gamesPlayed++;
+                break;
+            }
+            else {
+                printf("The board is full, you have one extra chance!\n");
+            }
         }
 
-        printf("Pohyb hrou (WASD): ");
-        scanf(" %c", &input);
+        printf("Use arrow keys (Up, Down, Left, Right): ");
+        char input = getch();  // Use getch to read the arrow key press
+
+        // Detect arrow keys using extended codes
+        if (input == 0 || input == 224) {
+            input = getch();  // Get the actual key code
+        }
 
         success = 0; // Reset success for each move attempt
 
         switch (input) {
-        case 'a':
-        case 'A':
+        case 75: // Left arrow
             success = moveLeft(board);
             addNewTile(board);
             break;
-        case 'd':
-        case 'D':
+        case 77: // Right arrow
             success = moveRight(board);
             addNewTile(board);
             break;
-        case 'w':
-        case 'W':
-            success = moveDown(board);
+        case 72: // Up arrow
+            success = moveUp(board);
             addNewTile(board);
             break;
-        case 's':
-        case 'S':
-            success = moveUp(board);
+        case 80: // Down arrow
+            success = moveDown(board);
             addNewTile(board);
             break;
         default:
             printf("Invalid input!\n");
         }
-
-        //if (success != 0) {
-           // addNewTile(board); // Add new tile only if there was a successful move
-        //}
     }
+}
 
-    return 0;
+void showStatistics() {
+    system("cls");
+    printf("Statistiky:\n");
+    printf("Hracich her: %d\n", gamesPlayed);
+    printf("Vyhranych her: %d\n", gamesWon);
+    printf("Celkovy score: %d\n", totalScore);
+    printf("\nStisknete libovolnou klavesu pro navrat do menu.");
+    getch();  // Wait for the user to press a key
+}
+
+int main() {
+    srand(time(NULL));
+
+    loadStatistics();  // Load statistics when the program starts
+
+    while (1) {
+        showMenu();
+        char choice = getch();
+        switch (choice) {
+        case '1':  // New game
+            startNewGame();
+            break;
+        case '2':  // Continue game
+            printf("Pokracovani neni implementovano.\n");
+            break;
+        case '3':  // Show statistics
+            showStatistics();
+            break;
+        case '4':  // Exit
+            printf("Konec hry.\n");
+            saveStatistics();  // Save statistics when exiting
+            return 0;
+        default:
+            printf("Neplatna volba! Stisknete libovolnou klavesu pro opakovani.\n");
+            getch();
+        }
+    }
 }

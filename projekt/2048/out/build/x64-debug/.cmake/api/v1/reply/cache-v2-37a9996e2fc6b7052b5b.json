@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Dejv\u00edk/source/repos/2048/out/build/x64-debug"
+			"value" : "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/build/x64-debug"
 		},
 		{
 			"name" : "2048_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Dejv\u00edk/source/repos/2048"
+			"value" : "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -51,7 +51,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/lib.exe"
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/lib.exe"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -75,7 +75,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Dejv\u00edk/source/repos/2048/out/build/x64-debug"
+			"value" : "c:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/build/x64-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -503,7 +503,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Dejv\u00edk/source/repos/2048/out/build/x64-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/build/x64-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -563,7 +563,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Dejv\u00edk/source/repos/2048"
+			"value" : "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/Dejv\u00edk/source/repos/2048/out/install/x64-debug"
+			"value" : "C:/Users/hynko/Documents/GitHub/BPC-PC1T/projekt/2048/out/install/x64-debug"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -591,7 +591,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/link.exe"
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
