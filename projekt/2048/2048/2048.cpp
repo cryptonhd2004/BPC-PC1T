@@ -13,26 +13,80 @@ int totalScore = 0;
 char playerName[100];  // Pro uchování jména hráče
 
 void saveStatistics() {
-    FILE* file = fopen("statistics.txt", "w");
+    FILE* file = fopen("statistics.txt", "a"); // Otevře soubor v režimu přidání
     if (file != NULL) {
-        fprintf(file, "Player Name: %s\n", playerName);
-        fprintf(file, "Games Played: %d\n", gamesPlayed);
-        fprintf(file, "Games Won: %d\n", gamesWon);
-        fprintf(file, "Total Score: %d\n", totalScore);
+        fprintf(file, "%s,%d\n", playerName, totalScore);
         fclose(file);
     }
 }
 
-void loadStatistics() {
+void loadStatisticsAndSort(char topPlayers[10][100], int topScores[10], int* playerCount) {
     FILE* file = fopen("statistics.txt", "r");
     if (file != NULL) {
-        fscanf(file, "Player Name: %s\n", playerName);
-        fscanf(file, "Games Played: %d\n", &gamesPlayed);
-        fscanf(file, "Games Won: %d\n", &gamesWon);
-        fscanf(file, "Total Score: %d\n", &totalScore);
+        char line[150];
+        char tempNames[1000][100];
+        int tempScores[1000];
+        int count = 0;
+
+        // Načti všechny záznamy
+        while (fgets(line, sizeof(line), file)) {
+            char* token = strtok(line, ",");
+            if (token != NULL) {
+                strncpy(tempNames[count], token, sizeof(tempNames[count]) - 1);
+                token = strtok(NULL, ",");
+                if (token != NULL) {
+                    tempScores[count] = atoi(token);
+                    count++;
+                }
+            }
+        }
         fclose(file);
+
+        // Seřaď záznamy sestupně podle skóre (jednoduché řazení Bubble Sort)
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = 0; j < count - i - 1; j++) {
+                if (tempScores[j] < tempScores[j + 1]) {
+                    int tempScore = tempScores[j];
+                    tempScores[j] = tempScores[j + 1];
+                    tempScores[j + 1] = tempScore;
+
+                    char tempName[100];
+                    strcpy(tempName, tempNames[j]);
+                    strcpy(tempNames[j], tempNames[j + 1]);
+                    strcpy(tempNames[j + 1], tempName);
+                }
+            }
+        }
+
+        // Zkopíruj 10 nejlepších hráčů
+        *playerCount = (count < 10) ? count : 10;
+        for (int i = 0; i < *playerCount; i++) {
+            strcpy(topPlayers[i], tempNames[i]);
+            topScores[i] = tempScores[i];
+        }
     }
 }
+
+void showStatistics() {
+    system("cls");
+
+    char topPlayers[10][100];
+    int topScores[10];
+    int playerCount = 0;
+
+    loadStatisticsAndSort(topPlayers, topScores, &playerCount);
+
+    printf("Statistiky - Top 10 hracu:\n");
+    for (int i = 0; i < playerCount; i++) {
+        printf("%d. %s - %d\n", i + 1, topPlayers[i], topScores[i]);
+    }
+
+    printf("\nStisknete libovolnou klavesu pro navrat do menu.");
+    getch();
+}
+
+
+
 
 void printBoard(int board[SIZE][SIZE]) {
     system("cls");
@@ -239,19 +293,77 @@ void showMenu() {
     system("cls");
     printf("Hlavni menu:\n");
     printf("1. Nova hra\n");
-    printf("2. Statistiky\n");
-    printf("3. Konec\n");
-    printf("Vyberte volbu (1-3): ");
+    if (fopen("savegame.txt", "r") != NULL) {
+        printf("2. Pokracovat v ulozene hre\n");
+    }
+    printf("3. Statistiky\n");
+    printf("4. Konec\n");
+    printf("Vyberte volbu (1-4): ");
 }
 
-void startNewGame() {
-    printf("Zadejte sve jmeno: ");
-    fgets(playerName, 100, stdin);
-    playerName[strcspn(playerName, "\n")] = '\0';  // Remove trailing newline character
+
+void saveGame(int board[SIZE][SIZE]) {
+    FILE* file = fopen("savegame.txt", "w");
+    if (file != NULL) {
+        // Uložíme hrací desku
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                fprintf(file, "%d ", board[i][j]);
+            }
+            fprintf(file, "\n");
+        }
+
+        // Uložíme statistiky
+        fprintf(file, "%s\n", playerName);
+        fprintf(file, "%d %d %d\n", gamesPlayed, gamesWon, totalScore);
+        fclose(file);
+        printf("Hra byla ulozena.\n");
+    }
+    else {
+        printf("Chyba pri ukladani hry!\n");
+    }
+}
+
+int loadGame(int board[SIZE][SIZE]) {
+    FILE* file = fopen("savegame.txt", "r");
+    if (file != NULL) {
+        // Načteme hrací desku
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (fscanf(file, "%d", &board[i][j]) != 1) {
+                    fclose(file);
+                    return 0; // Chyba při načítání
+                }
+            }
+        }
+
+        // Načteme statistiky
+        fscanf(file, "%s", playerName);
+        fscanf(file, "%d %d %d", &gamesPlayed, &gamesWon, &totalScore);
+        fclose(file);
+        return 1; // Úspěšně načteno
+    }
+    return 0; // Soubor neexistuje
+}
+
+
+void startNewGame(int isNewGame) {
+    if (isNewGame) {  // Pokud je to nová hra
+        printf("Zadejte sve jmeno: ");
+        fgets(playerName, 100, stdin);
+        playerName[strcspn(playerName, "\n")] = '\0';  // Odstraníme konec řádku
+        totalScore = 0;  // Nastavíme skóre na 0
+    }
 
     int board[SIZE][SIZE] = { 0 };
-    addNewTile(board);
-    addNewTile(board);
+    if (!isNewGame && loadGame(board)) {  // Pokračování v uložené hře
+        printf("Ulozena hra byla nactena. Pokracujeme...\n");
+    }
+    else {  // Nová hra
+        memset(board, 0, sizeof(board));
+        addNewTile(board);
+        addNewTile(board);
+    }
 
     while (1) {
         printBoard(board);
@@ -263,16 +375,19 @@ void startNewGame() {
             break;
         }
 
-        printf("Use arrow keys (Up, Down, Left, Right): ");
+        printf("Use arrow keys (Up, Down, Left, Right) or press 'S' to save and quit: ");
         char input = getch();
 
         if (input == 0 || input == 224) {
             input = getch();
         }
 
-        // Zkopírujeme aktuální stav desky před pohybem
-        int oldBoard[SIZE][SIZE];
-        memcpy(oldBoard, board, sizeof(board));
+        // Speciální vstup pro uložení hry
+        if (input == 'S' || input == 's') {
+            saveGame(board);
+            saveStatistics();
+            return; // Návrat do menu
+        }
 
         int success = 0;
         switch (input) {
@@ -290,42 +405,39 @@ void startNewGame() {
             break;
         default:
             printf("Invalid input!\n");
+            continue;
         }
 
-        // Porovnáme desku před a po tahu
-        if (memcmp(oldBoard, board, sizeof(board)) != 0) {
-            addNewTile(board);  // Přidáme nový tile pouze při změně na desce
-            totalScore++;       // Zvyšíme skóre za tah
-        }
+        // Přidáme nový tile po každém tahu
+        addNewTile(board);
+        totalScore++;
     }
 }
-void showStatistics() {
-    system("cls");
-    printf("Statistiky:\n");
-    printf("Hrac: %s\n", playerName);
-    printf("Hracich her: %d\n", gamesPlayed);
-    printf("Vyhranych her: %d\n", gamesWon);
-    printf("Celkovy score: %d\n", totalScore);
-    printf("\nStisknete libovolnou klavesu pro navrat do menu.");
-    getch();
-}
+
 
 int main() {
     srand(time(NULL));
-
-    loadStatistics();
 
     while (1) {
         showMenu();
         char choice = getch();
         switch (choice) {
-        case '1':  // New game
-            startNewGame();
+        case '1':  // Nová hra
+            startNewGame(1);  // 1 = Nová hra (ptá se na jméno)
             break;
-        case '2':  // Show statistics
+        case '2':  // Pokračování
+            if (fopen("savegame.txt", "r") != NULL) {
+                startNewGame(0);  // 0 = Pokračování (neptá se na jméno)
+            }
+            else {
+                printf("Zadna ulozena hra nebyla nalezena.\n");
+                system("pause");
+            }
+            break;
+        case '3':  // Statistiky
             showStatistics();
             break;
-        case '3':  // Exit
+        case '4':  // Konec
             printf("Konec hry.\n");
             saveStatistics();
             return 0;
