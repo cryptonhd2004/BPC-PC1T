@@ -7,13 +7,10 @@
 #define SIZE 4
 
 // Globální proměnné pro uchování statistik
-int gamesPlayed = 0;
-int gamesWon = 0;
 int totalScore = 0;
 char playerName[100];  // Pro uchování jména hráče
-
 void saveStatistics() {
-    FILE* file = fopen("statistics.txt", "r+"); // Otevřeme soubor pro čtení i zápis
+    FILE* file = fopen("statistics.txt", "a+");  // Open file in append mode
     if (file != NULL) {
         char line[150];
         char tempNames[1000][100];
@@ -21,7 +18,7 @@ void saveStatistics() {
         int count = 0;
         int found = 0;
 
-        // Načteme všechny existující záznamy
+        // Read all existing records
         while (fgets(line, sizeof(line), file)) {
             char* token = strtok(line, ",");
             if (token != NULL) {
@@ -34,33 +31,35 @@ void saveStatistics() {
             }
         }
 
-        // Pokud hráč již existuje, aktualizujeme jeho skóre
+        // Update the score if the player already exists
         for (int i = 0; i < count; i++) {
             if (strcmp(playerName, tempNames[i]) == 0) {
-                tempScores[i] = totalScore;  // Aktualizujeme skóre
+                tempScores[i] = totalScore;  // Update score
                 found = 1;
                 break;
             }
         }
 
-        // Pokud hráč není v seznamu, přidáme nový záznam
+        // If the player is not found, add a new record
         if (!found) {
             strcpy(tempNames[count], playerName);
             tempScores[count] = totalScore;
             count++;
         }
 
-        // Přejdeme na začátek souboru
-        freopen("statistics.txt", "w", file);
+        fclose(file); // Close before reopening for write
 
-        // Uložíme všechny záznamy zpět do souboru
-        for (int i = 0; i < count; i++) {
-            fprintf(file, "%s,%d\n", tempNames[i], tempScores[i]);
+        // Reopen for writing all the records back
+        file = fopen("statistics.txt", "w");  // Open file to overwrite
+        if (file != NULL) {
+            for (int i = 0; i < count; i++) {
+                fprintf(file, "%s,%d\n", tempNames[i], tempScores[i]);
+            }
+            fclose(file); // Close after saving the records
         }
-
-        fclose(file);
     }
 }
+
 
 
 void loadStatisticsAndSort(char topPlayers[10][100], int topScores[10], int* playerCount) {
@@ -359,7 +358,7 @@ void saveGame(int board[SIZE][SIZE]) {
 
         // Uložíme statistiky
         fprintf(file, "%s\n", playerName);
-        fprintf(file, "%d %d %d\n", gamesPlayed, gamesWon, totalScore);
+        fprintf(file,"%d\n", totalScore);
         fclose(file);
         printf("Hra byla ulozena.\n");
     }
@@ -383,7 +382,7 @@ int loadGame(int board[SIZE][SIZE]) {
 
         // Načteme statistiky
         fscanf(file, "%s", playerName);
-        fscanf(file, "%d %d %d", &gamesPlayed, &gamesWon, &totalScore);
+        fscanf(file, "%d", &totalScore);
         fclose(file);
         return 1; // Úspěšně načteno
     }
@@ -409,31 +408,30 @@ int isNameTaken(const char* name) {
 }
 
 void startNewGame(int isNewGame) {
-    if (isNewGame) {  // Pokud je to nová hra
-        // Dokud hráč nezadá unikátní jméno
+    if (isNewGame) {  // If it's a new game
         while (1) {
             printf("\nZadejte sve jmeno: ");
             fgets(playerName, 100, stdin);
-            playerName[strcspn(playerName, "\n")] = '\0';  // Odstraníme konec řádku
+            playerName[strcspn(playerName, "\n")] = '\0';  // Remove newline character
 
             if (isNameTaken(playerName)) {
                 printf("Jmeno '%s' je uz pouzito. Zadejte jine jmeno.\n", playerName);
                 _sleep(1000);
             }
             else {
-                break;  // Jméno je unikátní, přerušujeme cyklus
+                break;  // Name is unique, break out of loop
             }
         }
 
-        totalScore = 0;  // Nastavíme skóre na 0
+        totalScore = 0;  // Reset score for the new game
     }
 
-    // Zbytek funkce zůstává stejný
+    // Initialize the game board
     int board[SIZE][SIZE] = { 0 };
-    if (!isNewGame && loadGame(board)) {  // Pokračování v uložené hře
+    if (!isNewGame && loadGame(board)) {  // Continue from saved game
         printf("Ulozena hra byla nactena. Pokracujeme...\n");
     }
-    else {  // Nová hra
+    else {  // New game
         memset(board, 0, sizeof(board));
         addNewTile(board);
         addNewTile(board);
@@ -444,8 +442,8 @@ void startNewGame(int isNewGame) {
 
         if (isBoardFull(board) && !hasValidMove(board)) {
             printf("Game Over! No moves left and the board is full.\n");
+            saveStatistics();  // Save the final statistics before exiting
             system("pause");
-            gamesPlayed++;
             break;
         }
 
@@ -456,11 +454,11 @@ void startNewGame(int isNewGame) {
             input = getch();
         }
 
-        // Speciální vstup pro uložení hry
+        // Special input for saving the game
         if (input == 'S' || input == 's') {
             saveGame(board);
-            saveStatistics();
-            return; // Návrat do menu
+            saveStatistics();  // Save the statistics
+            return;  // Return to menu
         }
 
         int success = 0;
@@ -482,11 +480,12 @@ void startNewGame(int isNewGame) {
             continue;
         }
 
-        // Přidáme nový tile po každém tahu
+        // Add new tile after each move
         addNewTile(board);
         totalScore++;
     }
 }
+
 
 int main() {
     srand(time(NULL));
@@ -516,7 +515,6 @@ int main() {
             return 0;
         default:
             printf("Neplatna volba! Stisknete libovolnou klavesu pro opakovani.\n");
-            getch();
         }
     }
 }
