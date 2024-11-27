@@ -9,10 +9,17 @@
 // Globální proměnné pro uchování statistik
 int totalScore = 0;
 char playerName[100];  // Pro uchování jména hráče
-void saveStatistics() {
+
+int compareScores(const void* a, const void* b) {
+    return ((int*)b)[1] - ((int*)a)[1];  // Seřadí podle skóre sestupně
+}
+
+void saveStatistics(const char* playerName, int totalScore) {
     FILE* file = fopen("statistics.txt", "a+");  // Open file in append mode
     if (file != NULL) {
         char line[150];
+
+        // Dynamická alokace paměti pro seznam jmen a skóre
         char tempNames[1000][100];
         int tempScores[1000];
         int count = 0;
@@ -49,66 +56,27 @@ void saveStatistics() {
 
         fclose(file); // Close before reopening for write
 
-        // Reopen for writing all the records back
+        // Seřadíme hráče podle skóre sestupně
+        int players[1000][2];  // 2D pole, kde první sloupec je index hráče, druhý sloupec je skóre
+        for (int i = 0; i < count; i++) {
+            players[i][0] = i;  // Index hráče
+            players[i][1] = tempScores[i];  // Skóre
+        }
+
+        // Seřadíme hráče podle skóre
+        qsort(players, count, sizeof(players[0]), compareScores);
+
+        // Reopen file to overwrite and save the top 10 players
         file = fopen("statistics.txt", "w");  // Open file to overwrite
         if (file != NULL) {
-            for (int i = 0; i < count; i++) {
-                fprintf(file, "%s,%d\n", tempNames[i], tempScores[i]);
+            for (int i = 0; i < (count < 10 ? count : 10); i++) {
+                // Zapíšeme top 10 hráčů do souboru
+                fprintf(file, "%s,%d\n", tempNames[players[i][0]], tempScores[players[i][0]]);
             }
             fclose(file); // Close after saving the records
         }
     }
 }
-
-
-
-void loadStatisticsAndSort(char topPlayers[10][100], int topScores[10], int* playerCount) {
-    FILE* file = fopen("statistics.txt", "r");
-    if (file != NULL) {
-        char line[150];
-        char tempNames[1000][100];
-        int tempScores[1000];
-        int count = 0;
-
-        // Načteme všechny záznamy
-        while (fgets(line, sizeof(line), file)) {
-            char* token = strtok(line, ",");
-            if (token != NULL) {
-                strncpy(tempNames[count], token, sizeof(tempNames[count]) - 1);
-                token = strtok(NULL, ",");
-                if (token != NULL) {
-                    tempScores[count] = atoi(token);
-                    count++;
-                }
-            }
-        }
-        fclose(file);
-
-        // Seřaď záznamy sestupně podle skóre (Bubble sort)
-        for (int i = 0; i < count - 1; i++) {
-            for (int j = 0; j < count - i - 1; j++) {
-                if (tempScores[j] < tempScores[j + 1]) {
-                    int tempScore = tempScores[j];
-                    tempScores[j] = tempScores[j + 1];
-                    tempScores[j + 1] = tempScore;
-
-                    char tempName[100];
-                    strcpy(tempName, tempNames[j]);
-                    strcpy(tempNames[j], tempNames[j + 1]);
-                    strcpy(tempNames[j + 1], tempName);
-                }
-            }
-        }
-
-        // Zkopíruj top 10 hráčů
-        *playerCount = (count < 10) ? count : 10;
-        for (int i = 0; i < *playerCount; i++) {
-            strcpy(topPlayers[i], tempNames[i]);
-            topScores[i] = tempScores[i];
-        }
-    }
-}
-
 
 void showStatistics() {
     system("cls");
@@ -117,9 +85,38 @@ void showStatistics() {
     int topScores[10];
     int playerCount = 0;
 
-    loadStatisticsAndSort(topPlayers, topScores, &playerCount);
+    // Otevření souboru pro čtení statistik
+    FILE* file = fopen("statistics.txt", "r");
+    if (file == NULL) {
+        printf("Nepodarilo se otevrit soubor pro cteni.\n");
+        return; // Pokud se soubor neotevře, skončíme funkci
+    }
 
-    printf("Statistiky - Top 10 hracu:\n");
+    char line[150];
+    printf("***2048***\n");
+
+    // Načítáme záznamy
+    while (fgets(line, sizeof(line), file) && playerCount < 10) {
+        char* token = strtok(line, ",");
+        if (token != NULL) {
+            strncpy(topPlayers[playerCount], token, sizeof(topPlayers[playerCount]) - 1);
+            token = strtok(NULL, ",");
+            if (token != NULL) {
+                topScores[playerCount] = atoi(token);
+                playerCount++;
+            }
+        }
+    }
+
+    fclose(file); // Zavřeme soubor po načtení
+
+    if (playerCount == 0) {
+        printf("Nebyl nalezen žádný záznam v souboru.\n");
+    }
+
+    printf("\nStatistiky - Top 10 hracu:\n\n");
+
+    // Vypíšeme top 10 hráčů a jejich skóre
     for (int i = 0; i < playerCount; i++) {
         printf("%d. %s - %d\n", i + 1, topPlayers[i], topScores[i]);
     }
@@ -128,14 +125,11 @@ void showStatistics() {
     getch();
 }
 
-
-
-
 void printBoard(int board[SIZE][SIZE]) {
     system("cls");
-    printf("\n");
-    printf("Player: %s\n", playerName);
-    printf("Current Score: %d\n", totalScore);
+    printf("***2048***\n\n");
+    printf("Hrac: %s\n", playerName);
+    printf("\nSkore: %d\n", totalScore);
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (board[i][j] == 0)
@@ -334,6 +328,7 @@ int checkWin(int board[SIZE][SIZE]) {
 
 void showMenu() {
     system("cls");
+    printf("***2048***\n");
     printf("Hlavni menu:\n");
     printf("1. Nova hra\n");
     if (fopen("savegame.txt", "r") != NULL) {
@@ -410,7 +405,7 @@ int isNameTaken(const char* name) {
 void startNewGame(int isNewGame) {
     if (isNewGame) {  // If it's a new game
         while (1) {
-            printf("\nZadejte sve jmeno: ");
+            printf("\n\nZadejte sve jmeno: ");
             fgets(playerName, 100, stdin);
             playerName[strcspn(playerName, "\n")] = '\0';  // Remove newline character
 
@@ -439,15 +434,14 @@ void startNewGame(int isNewGame) {
 
     while (1) {
         printBoard(board);
-
         if (isBoardFull(board) && !hasValidMove(board)) {
-            printf("Game Over! No moves left and the board is full.\n");
-            saveStatistics();  // Save the final statistics before exiting
+            printf("Konec hry! Zadne mozne tahy.\n");
+            saveStatistics(playerName, totalScore);  // Save the final statistics before exiting
             system("pause");
             break;
         }
 
-        printf("Use arrow keys (Up, Down, Left, Right) or press 'S' to save and quit: ");
+        printf("\nPouzivejte sipky k ovladani, ulozit pomoci 'S'");
         char input = getch();
 
         if (input == 0 || input == 224) {
@@ -457,7 +451,7 @@ void startNewGame(int isNewGame) {
         // Special input for saving the game
         if (input == 'S' || input == 's') {
             saveGame(board);
-            saveStatistics();  // Save the statistics
+            saveStatistics(playerName, totalScore);  // Save the statistics
             return;  // Return to menu
         }
 
@@ -465,25 +459,33 @@ void startNewGame(int isNewGame) {
         switch (input) {
         case 75:  // Left arrow
             success = moveLeft(board);
+            totalScore++;
             break;
         case 77:  // Right arrow
             success = moveRight(board);
+            totalScore++;
             break;
         case 72:  // Up arrow
             success = moveUp(board);
+            totalScore++;
             break;
         case 80:  // Down arrow
             success = moveDown(board);
+            totalScore++;
             break;
+        case 's':  // Save game
+        case 'S':
+            saveGame(board);
+            saveStatistics(playerName, totalScore);  // Save the statistics
+            return;  // Return to the menu after saving
         }
 
         addNewTile(board);
-        totalScore++;
+
         saveGame(board);
-        saveStatistics();
+        saveStatistics(playerName, totalScore);
     }
 }
-
 
 int main() {
     srand(time(NULL));
@@ -509,10 +511,8 @@ int main() {
             break;
         case '4':  // Konec
             printf("Konec hry.\n");
-            saveStatistics();
+            saveStatistics(playerName, totalScore);
             return 0;
-        default:
-            printf("Neplatna volba! Stisknete libovolnou klavesu pro opakovani.\n");
         }
     }
 }
