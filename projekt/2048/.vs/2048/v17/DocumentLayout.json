@@ -5,6 +5,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\2048.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\2048.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\statistics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\statistics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:2048\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,9 +44,61 @@
               "RelativeDocumentMoniker": "2048\\2048.cpp",
               "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\2048.cpp",
               "RelativeToolTip": "2048\\2048.cpp",
-              "ViewState": "AgIAANYBAAAAAAAAAAAAAOMBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-11T09:51:49.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "game.h",
+              "DocumentMoniker": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.h",
+              "RelativeDocumentMoniker": "2048\\game.h",
+              "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.h",
+              "RelativeToolTip": "2048\\game.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-27T17:27:29.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "game.cpp",
+              "DocumentMoniker": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.cpp",
+              "RelativeDocumentMoniker": "2048\\game.cpp",
+              "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\game.cpp",
+              "RelativeToolTip": "2048\\game.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-27T17:28:09.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "statistics.h",
+              "DocumentMoniker": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.h",
+              "RelativeDocumentMoniker": "2048\\statistics.h",
+              "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.h",
+              "RelativeToolTip": "2048\\statistics.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-27T17:27:53.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "statistics.cpp",
+              "DocumentMoniker": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.cpp",
+              "RelativeDocumentMoniker": "2048\\statistics.cpp",
+              "ToolTip": "C:\\Users\\hynko\\Documents\\GitHub\\BPC-PC1T\\projekt\\2048\\2048\\statistics.cpp",
+              "RelativeToolTip": "2048\\statistics.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-27T17:28:01.775Z",
               "EditorCaption": ""
             }
           ]

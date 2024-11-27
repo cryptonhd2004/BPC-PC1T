@@ -84,6 +84,20 @@ build 2048\CMakeFiles\2048.dir\2048.cpp.obj: CXX_COMPILER__2048_unscanned_Debug 
   TARGET_COMPILE_PDB = 2048\CMakeFiles\2048.dir\
   TARGET_PDB = 2048\2048.pdb
 
+build 2048\CMakeFiles\2048.dir\statistics.cpp.obj: CXX_COMPILER__2048_unscanned_Debug C$:\Users\hynko\Documents\GitHub\BPC-PC1T\projekt\2048\2048\statistics.cpp || cmake_object_order_depends_target_2048
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = 2048\CMakeFiles\2048.dir
+  OBJECT_FILE_DIR = 2048\CMakeFiles\2048.dir
+  TARGET_COMPILE_PDB = 2048\CMakeFiles\2048.dir\
+  TARGET_PDB = 2048\2048.pdb
+
+build 2048\CMakeFiles\2048.dir\game.cpp.obj: CXX_COMPILER__2048_unscanned_Debug C$:\Users\hynko\Documents\GitHub\BPC-PC1T\projekt\2048\2048\game.cpp || cmake_object_order_depends_target_2048
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = 2048\CMakeFiles\2048.dir
+  OBJECT_FILE_DIR = 2048\CMakeFiles\2048.dir
+  TARGET_COMPILE_PDB = 2048\CMakeFiles\2048.dir\
+  TARGET_PDB = 2048\2048.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target 2048
@@ -92,7 +106,7 @@ build 2048\CMakeFiles\2048.dir\2048.cpp.obj: CXX_COMPILER__2048_unscanned_Debug 
 #############################################
 # Link the executable 2048\2048.exe
 
-build 2048\2048.exe: CXX_EXECUTABLE_LINKER__2048_Debug 2048\CMakeFiles\2048.dir\2048.cpp.obj
+build 2048\2048.exe: CXX_EXECUTABLE_LINKER__2048_Debug 2048\CMakeFiles\2048.dir\2048.cpp.obj 2048\CMakeFiles\2048.dir\statistics.cpp.obj 2048\CMakeFiles\2048.dir\game.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
