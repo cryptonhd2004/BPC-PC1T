@@ -475,14 +475,12 @@ void startNewGame(int isNewGame) {
         case 80:  // Down arrow
             success = moveDown(board);
             break;
-        default:
-            printf("Invalid input!\n");
-            continue;
         }
 
-        // Add new tile after each move
         addNewTile(board);
         totalScore++;
+        saveGame(board);
+        saveStatistics();
     }
 }
 

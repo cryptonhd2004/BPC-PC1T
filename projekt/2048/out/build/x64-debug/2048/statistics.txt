@@ -9,4 +9,4 @@ d,5
 c,9
 t,7
 j,5
-Hynek,31
+Hynek,106
